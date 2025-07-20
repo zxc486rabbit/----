@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
 import Dashboard from "./pages/dashboard/Dashboard";
 
@@ -39,7 +39,7 @@ import "./index.css";
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <div
         className="container-fluid d-flex flex-nowrap p-0"
         style={{ height: "100vh" }}
@@ -86,6 +86,6 @@ export default function App() {
           </Routes>
         </div>
       </div>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
