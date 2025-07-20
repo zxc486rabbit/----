@@ -1,0 +1,15 @@
+body {
+  background-color: #eef5f9;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-image: url('https://www.transparenttextures.com/patterns/wavecut.png');
+}
+
+.navbar {
+  border-radius: 0 0 0.75rem 0.75rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.navbar-brand {
+  font-weight: 600;
+  font-size: 1.4rem;
+}
