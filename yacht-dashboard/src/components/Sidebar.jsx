@@ -129,13 +129,13 @@ export default function Sidebar() {
         {menus.map((menu, index) => (
           <div key={index}>
             <button
-  type="button"
-  className="menu-toggle btn btn-link text-start w-100 text-white"
-  onClick={() => handleToggleSubmenu(index)}
->
-  <span className="sidebar-icon">{menu.icon}</span>
-  <span className="sidebar-label">{menu.label}</span>
-</button>
+              type="button"
+              className="menu-toggle btn btn-link text-start w-100 text-white"
+              onClick={() => handleToggleSubmenu(index)}
+            >
+              <span className="sidebar-icon">{menu.icon}</span>
+              <span className="sidebar-label">{menu.label}</span>
+            </button>
             <div
               className={`submenu ps-4 ${
                 activeSubmenu === index ? "" : "d-none"
