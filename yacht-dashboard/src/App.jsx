@@ -39,7 +39,7 @@ import "./index.css";
 
 export default function App() {
   return (
-    <HashRouter basename="/yacht-dashboard">
+    <HashRouter>
       <div
         className="container-fluid d-flex flex-nowrap p-0"
         style={{ height: "100vh" }}
