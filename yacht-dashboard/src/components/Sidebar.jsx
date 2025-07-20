@@ -128,17 +128,14 @@ export default function Sidebar() {
       <div className="flex-grow-1">
         {menus.map((menu, index) => (
           <div key={index}>
-            <a
-              href="#"
-              className="menu-toggle"
-              onClick={(e) => {
-                e.preventDefault();
-                handleToggleSubmenu(index);
-              }}
-            >
-              <span className="sidebar-icon">{menu.icon}</span>
-              <span className="sidebar-label">{menu.label}</span>
-            </a>
+            <button
+  type="button"
+  className="menu-toggle btn btn-link text-start w-100 text-white"
+  onClick={() => handleToggleSubmenu(index)}
+>
+  <span className="sidebar-icon">{menu.icon}</span>
+  <span className="sidebar-label">{menu.label}</span>
+</button>
             <div
               className={`submenu ps-4 ${
                 activeSubmenu === index ? "" : "d-none"
