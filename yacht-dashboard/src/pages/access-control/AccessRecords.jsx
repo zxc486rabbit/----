@@ -1,11 +1,19 @@
 import { useState } from "react";
 
 export default function AccessRecords() {
+  const names = [
+    "王小明", "陳美麗", "李志強", "林佳蓉", "張育誠",
+    "黃淑芬", "趙元華", "吳佳玲", "鄭文龍", "周婉君",
+    "徐志豪", "曾雅婷", "賴建銘", "劉佩君", "簡士強",
+    "羅怡君", "蔡嘉文", "謝冠宇", "鍾惠茹", "唐昱翔",
+    "杜依婷", "馮育仁", "韓佳珍", "葉志成", "程芷涵"
+  ];
+
   const initialRecords = Array.from({ length: 25 }, (_, i) => ({
     id: i + 1,
-    name: `人員 ${i + 1}`,
+    name: names[i],
     cardId: `AIC-${1000 + i}`,
-    time: `2024-07-18 0${i % 9 + 1}:30`,
+    time: `2024-07-18 0${(i % 9) + 1}:30`,
     action: i % 2 === 0 ? "進入" : "離開",
   }));
 

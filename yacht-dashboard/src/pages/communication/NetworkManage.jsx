@@ -3,11 +3,12 @@ import Swal from "sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
 
 export default function NetworkManage() {
-  const [data, setData] = useState([
-    { id: 1, name: "核心交換機", ip: "192.168.0.1", status: "正常" },
-    { id: 2, name: "防火牆", ip: "192.168.0.254", status: "異常" },
-    { id: 3, name: "無線AP-01", ip: "192.168.1.1", status: "維護中" },
-  ]);
+ const [data, setData] = useState([
+  { id: 1, name: "防火牆", ip: "192.168.0.254", status: "異常" },
+  { id: 2, name: "核心交換機", ip: "192.168.0.1", status: "正常" },
+  { id: 3, name: "工業級交換機", ip: "192.168.0.100", status: "正常" },
+  { id: 4, name: "無線AP-01", ip: "192.168.1.1", status: "維護中" },
+]);
 
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);

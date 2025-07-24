@@ -8,12 +8,12 @@ export default function Login() {
   const [remember, setRemember] = useState(false);
   const navigate = useNavigate();
 
-  // 交通部航港局 MTNet 會員申請表（PDF 下載頁面）
-  const mtNetApplyUrl = "https://web02.mtnet.gov.tw/0/Info/DownloadFile"; // 官方申請流程及表單下載:contentReference[oaicite:1]{index=1}
+  // 交通部航港局 MTNet 會員申請表 PDF 頁面
+  const mtNetApplyUrl = "https://web02.mtnet.gov.tw/0/Info/DownloadFile";
+  const bgUrl = `${import.meta.env.BASE_URL}images/loginBG.png`; // 來自 public 資料夾
 
   const handleLogin = (e) => {
     e.preventDefault();
-
     if (!username.trim() || !password.trim()) {
       Swal.fire("請輸入帳號與密碼", "", "warning");
       return;
@@ -32,7 +32,12 @@ export default function Login() {
   return (
     <div
       className="d-flex justify-content-center align-items-center"
-      style={{ height: "100vh" }}
+      style={{
+        height: "100vh",
+        backgroundImage: `url(${bgUrl})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
     >
       <div
         className="card shadow p-4"
@@ -41,6 +46,7 @@ export default function Login() {
           width: "100%",
           border: "none",
           borderRadius: "12px",
+          backgroundColor: "rgba(255, 255, 255, 0.95)",
         }}
       >
         <h4
@@ -111,21 +117,36 @@ export default function Login() {
             <a href="#" style={{ color: "#0599BB", fontSize: "0.9rem" }}>
               忘記密碼？
             </a>
-            <div>
-              <a href="#" style={{ color: "#0599BB", fontSize: "0.9rem", marginRight: "10px" }}>
-                註冊帳號
-              </a>
-              <a
-                href={mtNetApplyUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{ color: "#0599BB", fontSize: "0.9rem" }}
-              >
-                入港申請
-              </a>
-            </div>
+            <a href="#" style={{ color: "#0599BB", fontSize: "0.9rem" }}>
+              註冊帳號
+            </a>
           </div>
         </form>
+
+        {/* 🚢 入港申請按鈕區塊 */}
+        <div className="text-center mt-4">
+          <a
+            href={mtNetApplyUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              display: "inline-block",
+              padding: "10px 20px",
+              fontWeight: "600",
+              fontSize: "0.95rem",
+              color: "#fff",
+              background: "linear-gradient(90deg, #FF9800, #FFB74D)",
+              borderRadius: "8px",
+              textDecoration: "none",
+              boxShadow: "0 4px 8px rgba(0,0,0,0.15)",
+              transition: "transform 0.2s ease",
+            }}
+            onMouseOver={(e) => (e.currentTarget.style.transform = "scale(1.05)")}
+            onMouseOut={(e) => (e.currentTarget.style.transform = "scale(1.0)")}
+          >
+            入港申請（前往航港局）
+          </a>
+        </div>
       </div>
     </div>
   );
