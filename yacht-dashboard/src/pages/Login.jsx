@@ -8,6 +8,9 @@ export default function Login() {
   const [remember, setRemember] = useState(false);
   const navigate = useNavigate();
 
+  // 交通部航港局 MTNet 會員申請表（PDF 下載頁面）
+  const mtNetApplyUrl = "https://web02.mtnet.gov.tw/0/Info/DownloadFile"; // 官方申請流程及表單下載:contentReference[oaicite:1]{index=1}
+
   const handleLogin = (e) => {
     e.preventDefault();
 
@@ -16,7 +19,6 @@ export default function Login() {
       return;
     }
 
-    // 模擬登入成功
     Swal.fire({
       title: "登入成功",
       icon: "success",
@@ -30,9 +32,7 @@ export default function Login() {
   return (
     <div
       className="d-flex justify-content-center align-items-center"
-      style={{
-        height: "100vh"
-      }}
+      style={{ height: "100vh" }}
     >
       <div
         className="card shadow p-4"
@@ -111,9 +111,19 @@ export default function Login() {
             <a href="#" style={{ color: "#0599BB", fontSize: "0.9rem" }}>
               忘記密碼？
             </a>
-            <a href="#" style={{ color: "#0599BB", fontSize: "0.9rem" }}>
-              註冊帳號
-            </a>
+            <div>
+              <a href="#" style={{ color: "#0599BB", fontSize: "0.9rem", marginRight: "10px" }}>
+                註冊帳號
+              </a>
+              <a
+                href={mtNetApplyUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ color: "#0599BB", fontSize: "0.9rem" }}
+              >
+                入港申請
+              </a>
+            </div>
           </div>
         </form>
       </div>

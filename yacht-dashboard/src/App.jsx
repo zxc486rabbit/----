@@ -42,7 +42,7 @@ export default function App() {
     <HashRouter>
       <div
         className="container-fluid d-flex flex-nowrap p-0"
-        style={{ height: "100vh" }}
+        style={{ height: "100vh", overflow: "hidden" }}
       >
         <Sidebar />
         <div className="main-content flex-grow-1" style={{ minWidth: 0 }}>

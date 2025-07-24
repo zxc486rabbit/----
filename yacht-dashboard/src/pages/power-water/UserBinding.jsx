@@ -2,9 +2,25 @@ import { useState } from "react";
 import Swal from "sweetalert2";
 
 export default function UserBinding() {
-  const initialUsers = Array.from({ length: 23 }, (_, i) => ({
+  // 🔹人名清單
+  const namePool = [
+    "王小明", "陳美麗", "張志強", "林宜君", "李志偉",
+    "黃婷婷", "吳俊傑", "蔡佩珊", "周家豪", "曾雅慧",
+    "謝承恩", "鄭語庭", "簡郁翔", "江曉婷", "賴柏宏",
+    "徐佳玲", "郭彥廷", "鍾子翔", "洪怡君", "朱浩宇",
+    "羅嘉玲", "宋文傑", "葉佳穎", "馮雅雯", "杜思涵",
+    "高仁傑", "彭柏翰", "盧郁潔", "戴雅芳", "魏志成"
+  ];
+
+  // 🔹隨機不重複取出 23 個名字
+  const getUniqueNames = (count) => {
+    const shuffled = [...namePool].sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, count);
+  };
+
+  const initialUsers = getUniqueNames(23).map((name, i) => ({
     id: i + 1,
-    name: `用戶${i + 1}`,
+    name,
     bound: Math.random() > 0.5,
   }));
 
@@ -55,6 +71,7 @@ export default function UserBinding() {
     <div className="container mt-4">
       <h3 className="mb-4 text-primary">用戶資訊綁定</h3>
 
+      {/* 搜尋欄 */}
       <div className="mb-3 row">
         <div className="col-md-4">
           <input
@@ -67,6 +84,7 @@ export default function UserBinding() {
         </div>
       </div>
 
+      {/* 資料表格 */}
       <table className="table table-bordered text-center shadow-sm">
         <thead className="table-info">
           <tr>

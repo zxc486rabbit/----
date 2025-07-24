@@ -4,9 +4,33 @@ import "sweetalert2/dist/sweetalert2.min.css";
 
 export default function OwnerShipManage() {
   const [data, setData] = useState([
-    { id: 1, owner: "船主 1", ship: "船舶 1", status: "啟用" },
-    { id: 2, owner: "船主 2", ship: "船舶 2", status: "維護" },
-    { id: 3, owner: "船主 3", ship: "船舶 3", status: "停用" },
+    {
+      id: 1,
+      owner: "陳大富",
+      ship: "富貴號",
+      phone: "0912-345-678",
+      company: "台灣遠洋股份有限公司",
+      status: "啟用",
+      createdAt: new Date(),
+    },
+    {
+      id: 2,
+      owner: "林金寶",
+      ship: "勝利輪",
+      phone: "0987-654-321",
+      company: "新海企業行",
+      status: "維護",
+      createdAt: new Date(),
+    },
+    {
+      id: 3,
+      owner: "黃小川",
+      ship: "和平之星",
+      phone: "0966-888-999",
+      company: "海大船務",
+      status: "停用",
+      createdAt: new Date(),
+    },
   ]);
 
   const [search, setSearch] = useState("");
@@ -15,14 +39,13 @@ export default function OwnerShipManage() {
 
   const filteredData = data.filter(
     (item) =>
-      item.owner.includes(search.trim()) || item.ship.includes(search.trim())
+      item.owner.includes(search.trim()) ||
+      item.ship.includes(search.trim()) ||
+      item.company.includes(search.trim())
   );
 
   const totalPages = Math.ceil(filteredData.length / pageSize);
-  const pageData = filteredData.slice(
-    (page - 1) * pageSize,
-    page * pageSize
-  );
+  const pageData = filteredData.slice((page - 1) * pageSize, page * pageSize);
 
   const nextStatus = (status) => {
     if (status === "啟用") return "維護";
@@ -74,6 +97,8 @@ export default function OwnerShipManage() {
       html: `
         <input id="owner" class="swal2-input" placeholder="船主">
         <input id="ship" class="swal2-input" placeholder="船舶">
+        <input id="phone" class="swal2-input" placeholder="聯絡電話">
+        <input id="company" class="swal2-input" placeholder="所屬公司">
       `,
       focusConfirm: false,
       showCancelButton: true,
@@ -82,7 +107,9 @@ export default function OwnerShipManage() {
       preConfirm: () => {
         const owner = document.getElementById("owner").value.trim();
         const ship = document.getElementById("ship").value.trim();
-        if (!owner || !ship) {
+        const phone = document.getElementById("phone").value.trim();
+        const company = document.getElementById("company").value.trim();
+        if (!owner || !ship || !phone || !company) {
           Swal.showValidationMessage("請填寫完整資料");
           return false;
         }
@@ -90,7 +117,7 @@ export default function OwnerShipManage() {
           Swal.showValidationMessage("該船舶已存在");
           return false;
         }
-        return { owner, ship };
+        return { owner, ship, phone, company };
       },
     }).then((result) => {
       if (result.isConfirmed) {
@@ -98,7 +125,10 @@ export default function OwnerShipManage() {
           id: Date.now(),
           owner: result.value.owner,
           ship: result.value.ship,
+          phone: result.value.phone,
+          company: result.value.company,
           status: "啟用",
+          createdAt: new Date(),
         };
         setData((prev) => [newItem, ...prev]);
         Swal.fire("新增成功", "", "success");
@@ -112,6 +142,8 @@ export default function OwnerShipManage() {
       html: `
         <input id="owner" class="swal2-input" placeholder="船主" value="${item.owner}">
         <input id="ship" class="swal2-input" placeholder="船名" value="${item.ship}">
+        <input id="phone" class="swal2-input" placeholder="聯絡電話" value="${item.phone}">
+        <input id="company" class="swal2-input" placeholder="所屬公司" value="${item.company}">
       `,
       focusConfirm: false,
       showCancelButton: true,
@@ -120,18 +152,26 @@ export default function OwnerShipManage() {
       preConfirm: () => {
         const owner = document.getElementById("owner").value.trim();
         const ship = document.getElementById("ship").value.trim();
-        if (!owner || !ship) {
+        const phone = document.getElementById("phone").value.trim();
+        const company = document.getElementById("company").value.trim();
+        if (!owner || !ship || !phone || !company) {
           Swal.showValidationMessage("請填寫完整資料");
           return false;
         }
-        return { owner, ship };
+        return { owner, ship, phone, company };
       },
     }).then((result) => {
       if (result.isConfirmed) {
         setData((prev) =>
           prev.map((row) =>
             row.id === item.id
-              ? { ...row, owner: result.value.owner, ship: result.value.ship }
+              ? {
+                  ...row,
+                  owner: result.value.owner,
+                  ship: result.value.ship,
+                  phone: result.value.phone,
+                  company: result.value.company,
+                }
               : row
           )
         );
@@ -148,7 +188,7 @@ export default function OwnerShipManage() {
         <div className="col-md-4">
           <input
             type="text"
-            placeholder="搜尋船主或船名"
+            placeholder="搜尋船主 / 船名 / 公司"
             value={search}
             onChange={(e) => {
               setSearch(e.target.value);
@@ -170,14 +210,17 @@ export default function OwnerShipManage() {
             <th>#</th>
             <th>船主</th>
             <th>船名</th>
+            <th>聯絡電話</th>
+            <th>公司</th>
             <th>狀態</th>
+            <th>建檔時間</th>
             <th>操作</th>
           </tr>
         </thead>
         <tbody>
           {pageData.length === 0 ? (
             <tr>
-              <td colSpan="5">查無資料</td>
+              <td colSpan="8">查無資料</td>
             </tr>
           ) : (
             pageData.map((item, idx) => (
@@ -185,33 +228,33 @@ export default function OwnerShipManage() {
                 <td>{(page - 1) * pageSize + idx + 1}</td>
                 <td>{item.owner}</td>
                 <td>{item.ship}</td>
+                <td>{item.phone}</td>
+                <td>{item.company}</td>
                 <td>
                   {item.status === "啟用" && (
-                    <span className="badge bg-success">
-                      <i className="fas fa-check-circle me-1"></i> 啟用
-                    </span>
+                    <span className="badge bg-success">啟用</span>
                   )}
                   {item.status === "維護" && (
-                    <span className="badge bg-warning text-dark">
-                      <i className="fas fa-tools me-1"></i> 維護
-                    </span>
+                    <span className="badge bg-warning text-dark">維護</span>
                   )}
                   {item.status === "停用" && (
-                    <span className="badge bg-secondary">
-                      <i className="fas fa-ban me-1"></i> 停用
-                    </span>
+                    <span className="badge bg-secondary">停用</span>
                   )}
+                </td>
+                <td>
+                  {new Date(item.createdAt).toLocaleDateString()}<br />
+                  {new Date(item.createdAt).toLocaleTimeString()}
                 </td>
                 <td>
                   <button
                     onClick={() => confirmToggleStatus(item.id, item.status)}
-                    className="btn btn-sm btn-primary me-2"
+                    className="btn btn-sm btn-primary me-1"
                   >
-                    切換狀態
+                    切換
                   </button>
                   <button
                     onClick={() => editShip(item)}
-                    className="btn btn-sm btn-warning me-2"
+                    className="btn btn-sm btn-warning me-1"
                   >
                     編輯
                   </button>

@@ -45,7 +45,7 @@ export default function Sidebar() {
       children: [
         { label: "即時監控模組", path: "realtime" },
         { label: "歷史紀錄查詢", path: "history" },
-        { label: "計費收費模組", path: "billing" },
+        // { label: "計費收費模組", path: "billing" },
         { label: "用戶資訊綁定", path: "user-binding" },
         { label: "遠端控管功能", path: "remote-control" },
       ],
